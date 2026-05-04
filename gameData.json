@@ -1,0 +1,32 @@
+{
+  "characters":[
+    {"name": "Octavius", "raceCode": 0, "profession": 0},
+    {"name": "Mecha-Bruiser", "raceCode": 1, "profession": 0}
+  ],
+  "start": "reef_city",
+  "reef_city": {
+    "setting": "You are a Knight of Pearl on Dasani. Humans are secretly stealing Aquarium-235. \nDo you (1) investigate the human research facility or (2) patrol the Mecha Whale Shark transit line?",
+    "option1": "facility",
+    "option2": "transit",
+    "triggerBattle": 0
+  },
+  "transit": {
+    "setting": "You patrol the transit line and spot a Shark mercenary smuggling Aquarium-235!\nDo you (1) confront the smuggler or (2) call for backup?",
+    "option1": "boss_fight",
+    "option2": "ending_coward",
+    "triggerBattle": 0
+  },
+  "facility": {
+    "setting": "You sneak into the human research facility. A rogue Shark guard spots you!\nDo you (1) stand your ground or (2) attempt a preemptive strike?",
+    "option1": "boss_fight",
+    "option2": "boss_fight",
+    "triggerBattle": 0
+  },
+  "boss_fight": {
+    "setting": "The enemy charges at you! Prepare for battle!",
+    "triggerBattle": 1
+  },
+  "ending_coward": {
+    "setting": "You wait for backup, but the smuggler escapes. Dasani remains at risk. GAME OVER."
+  }
+}
