@@ -51,5 +51,5 @@ void SharkBruiser::performAction(PlayerCharacter& target) {
         if (turnCounter % 3 == 0) bloodBite(target);
         else basicAttack(target);
     }
-}
+
 }
