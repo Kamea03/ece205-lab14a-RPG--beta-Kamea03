@@ -108,7 +108,6 @@ void PlayerCharacter::consumeResource(int& consumeResourceAmount) {
 	resource -= consumeResourceAmount;
 	}
 
-//
 void PlayerCharacter::takeDamage(int damage) {
     if (damage <= 1) {damage = 1;}
     cout << getName() << " took " << damage << " DAMAGE!\n" << endl;
@@ -120,4 +119,8 @@ void PlayerCharacter::takeDamage(int damage) {
 void PlayerCharacter::basicAttack(PlayerCharacter& target) {
 	int damage = getStrength() - target.getDefense();
     target.takeDamage(damage);
+}
+
+int PlayerCharacter::getMaxHealth() const {
+    return maxHealth;
 }
