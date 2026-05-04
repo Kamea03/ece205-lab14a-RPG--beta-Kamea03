@@ -32,7 +32,6 @@ int main() {
     cout << "   Knights of Pearl - FISH RPG Beta     \n";
     cout << "========================================\n\n";
 
-    // --- 1. INFORMATIONAL BLOCK & CLASS SELECTION ---
     cout << "--- CLASS INFORMATION ---\n";
     cout << "[0] Octopus Assassin  : High damage, stealth abilities, relies on ink charges.\n";
     cout << "[1] Shark Bruiser     : High physical stats, lands massive critical bites every 3rd turn.\n";
@@ -58,7 +57,6 @@ int main() {
         }
     }
 
-    // --- 2. LOAD DATA ---
     ifstream file("gameData.json");
     if (!file.is_open()) {
         cerr << "ERROR: Could not open gameData.json! Make sure it is in the same folder." << endl;
@@ -68,10 +66,9 @@ int main() {
     json storyData;
     file >> storyData;
 
-    // --- 3. PARSE CHARACTERS DYNAMICALLY ---
     std::vector<PlayerCharacter*> combatants;
 
-    // Instantiate Player Character based on user's choice
+    //instantiate Player Character based on user choice
     PlayerCharacter* player = nullptr;
     if (playerClassChoice == 0) player = new OctopusAssassin(playerName, playerClassChoice, true);
     else if (playerClassChoice == 1) player = new SharkBruiser(playerName, playerClassChoice, true);
@@ -80,7 +77,7 @@ int main() {
 
     combatants.push_back(player);
 
-    // Read enemies from JSON (Pass 'false' so they use AI)
+    //read enemies from JSON
     auto chars = storyData["characters"];
     for (size_t i = 1; i < chars.size(); ++i) {
         string cName = chars[i]["name"];

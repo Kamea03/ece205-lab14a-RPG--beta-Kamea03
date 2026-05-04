@@ -12,13 +12,14 @@
 #include "PlayerCharacter.hpp"
 #include <string>
 
-class OctopusAssassin : public PlayerCharacter { // Now inherits directly from PlayerCharacter
+//inherit direct from playercharacter
+class OctopusAssassin : public PlayerCharacter {
 private:
     bool isPlayerControlled;
     PlayerCharacter* markedTarget;
     int markBonusDamage;
 
-    // Assassin-specific stealth variables
+    //asssassin stealth mechanic vars
     bool isStealthed;
     int stealthStacks;
     int stealthDamageBonus;

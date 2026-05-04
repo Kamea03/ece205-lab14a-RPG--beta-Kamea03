@@ -12,7 +12,7 @@
 #include <iostream>
 #include <limits>
 
-// Constructor. Initializes all stats and class-specific mechanics directly.
+//initializes all stats, classspecific mechanics directly
 OctopusAssassin::OctopusAssassin(std::string& newName, int& raceCode, bool isPlayer) : PlayerCharacter(newName, raceCode), isPlayerControlled(isPlayer) {
     int maxHth = 30; setMaxHealth(maxHth);
     int hth = maxHth; setHealth(hth);
@@ -22,11 +22,11 @@ OctopusAssassin::OctopusAssassin(std::string& newName, int& raceCode, bool isPla
     int maxRes = 2; setMaxResource(maxRes);
     int startingInkCharge = 2; setResource(startingInkCharge);
 
-    // Ink Mark mechanics
+    //ink mark mechanics
     markedTarget = nullptr;
     markBonusDamage = 8;
 
-    // Stealth mechanics
+    //stealth mechanics
     isStealthed = false;
     stealthStacks = 0;
     maxStealthStacks = 2;
@@ -37,7 +37,7 @@ OctopusAssassin::OctopusAssassin(std::string& newName, int& raceCode, bool isPla
 void OctopusAssassin::basicAttack(PlayerCharacter& target) {
     int damage = getStrength();
 
-    // Add stealth ambush damage if attacking from shadows
+    //add stealth
     if (isStealthed) {
         std::cout << "\n*AMBUSH BONUS!* ";
         damage += (stealthStacks * stealthDamageBonus);
@@ -51,7 +51,7 @@ void OctopusAssassin::basicAttack(PlayerCharacter& target) {
     std::cout << getName() << " uses BASIC ATTACK!" << std::endl;
     target.takeDamage(damage);
 
-    // Restore 1 INK charge
+    //restore ink
     int inkGain = 1;
     addResource(inkGain);
     std::cout << "Restored 1 INK CHARGE! (Current: " << getResource() << "/" << getMaxResource() << ")\n" << std::endl;
@@ -75,17 +75,17 @@ void OctopusAssassin::tentacleSmack(PlayerCharacter& target) {
 
     std::cout << getName() << " used TENTACLE SMACK!";
 
-    // Check for Ink Mark
+    //check for Ink Mark
     if (markedTarget == &target) {
         damage += markBonusDamage;
         std::cout << " *** CRITICAL HIT ON MARKED TARGET! ***" << std::endl;
-        markedTarget = nullptr; // Consume the mark
+        markedTarget = nullptr; //consume mark
     } else {
-        damage -= 2; // Penalty for using without mark
+        damage -= 2; //take dmg if used without mark
         std::cout << " (It's not very effective without ink...)" << std::endl;
     }
 
-    // Add stealth ambush damage
+    //ambush dmg
     if (isStealthed) {
         std::cout << "*AMBUSH BONUS!* " << std::endl;
         damage += (stealthStacks * stealthDamageBonus);
@@ -121,7 +121,7 @@ void OctopusAssassin::stayStealthed() {
     }
 }
 
-// Override getDefense to apply stealth bonus dynamically
+//override defence for stealth
 int OctopusAssassin::getDefense() const {
     if (isStealthed) {
         return PlayerCharacter::getDefense() + stealthDefenseBonus;
@@ -151,7 +151,7 @@ void OctopusAssassin::performAction(PlayerCharacter& target) {
         case 3: isStealthed ? stayStealthed() : inkShroud(); return;
         }
     } else {
-        // Basic AI for enemy Octopus
+        //enemy logic
         static int turnCounter = 0; turnCounter++;
         if (turnCounter % 3 == 0) tentacleSmack(target);
         else basicAttack(target);

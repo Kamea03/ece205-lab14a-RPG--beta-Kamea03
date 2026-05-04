@@ -27,7 +27,7 @@ void JellyfishSorcerer::basicAttack(PlayerCharacter& target) {
 }
 
 void JellyfishSorcerer::lightningZap(PlayerCharacter& target) {
-    int damage = getStrength() + 5; // Magic ignores defense
+    int damage = getStrength() + 5; //magic ignore defense
     std::cout << getName() << " channels Aquarium-235 and uses LIGHTNING ZAP!" << std::endl;
     target.takeDamage(damage);
 }

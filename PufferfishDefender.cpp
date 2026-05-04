@@ -27,7 +27,7 @@ void PufferfishDefender::basicAttack(PlayerCharacter& target) {
 }
 
 void PufferfishDefender::spikeSwell(PlayerCharacter& target) {
-    int damage = 5; // Fixed piercing damage
+    int damage = 5;
     std::cout << getName() << " swells up and uses POISON SPIKES!" << std::endl;
     target.takeDamage(damage);
 }
