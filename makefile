@@ -6,7 +6,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -g
 TARGET = FishGame
 
 # Source files
-SRCS = main.cpp GameCharacter.cpp PlayerCharacter.cpp Octopus.cpp OctopusAssassin.cpp Shark.cpp
+SRCS = main.cpp GameCharacter.cpp PlayerCharacter.cpp Octopus.cpp OctopusAssassin.cpp SharkBruiser.cpp PufferfishDefender.cpp JellyfishSorcerer.cpp
 
 # Object files (replaces the .cpp extension with .o)
 OBJS = $(SRCS:.cpp=.o)
