@@ -9,8 +9,10 @@
 
 #include "JellyfishSorcerer.hpp"
 #include <iostream>
+#include <limits>
 
-JellyfishSorcerer::JellyfishSorcerer(std::string& newName, int& raceCode) : PlayerCharacter(newName, raceCode) {
+JellyfishSorcerer::JellyfishSorcerer(std::string& newName, int& raceCode, bool isPlayer)
+    : PlayerCharacter(newName, raceCode), isPlayerControlled(isPlayer) {
     int maxHth = 20; setMaxHealth(maxHth);
     int hth = maxHth; setHealth(hth);
     int str = 8; setStrength(str);
@@ -31,8 +33,21 @@ void JellyfishSorcerer::lightningZap(PlayerCharacter& target) {
 }
 
 void JellyfishSorcerer::performAction(PlayerCharacter& target) {
-    static int turnCounter = 0;
-    turnCounter++;
-    if (turnCounter % 3 == 0) lightningZap(target);
-    else basicAttack(target);
+    if (isPlayerControlled) {
+        int choice;
+        std::cout << "Select an ACTION:\n  [0] TENTACLE WHIP (Basic)\n  [1] LIGHTNING ZAP (Magic)\nChoice: ";
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || choice < 0 || choice > 1) {
+                std::cin.clear(); std::cin.ignore(10000, '\n');
+                std::cout << "Invalid. Enter 0 or 1: ";
+            } else break;
+        }
+        if (choice == 1) lightningZap(target);
+        else basicAttack(target);
+    } else {
+        static int turnCounter = 0; turnCounter++;
+        if (turnCounter % 3 == 0) lightningZap(target);
+        else basicAttack(target);
+    }
 }

@@ -12,10 +12,12 @@
 #include <string>
 
 class JellyfishSorcerer : public PlayerCharacter {
+private:
+    bool isPlayerControlled;
 protected:
     void basicAttack(PlayerCharacter& target) override;
     void lightningZap(PlayerCharacter& target);
 public:
-    JellyfishSorcerer(std::string& newName, int& raceCode);
+    JellyfishSorcerer(std::string& newName, int& raceCode, bool isPlayer = false);
     void performAction(PlayerCharacter& target) override;
 };

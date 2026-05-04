@@ -73,24 +73,24 @@ int main() {
 
     // Instantiate Player Character based on user's choice
     PlayerCharacter* player = nullptr;
-    if (playerClassChoice == 0) player = new OctopusAssassin(playerName, playerClassChoice);
-    else if (playerClassChoice == 1) player = new SharkBruiser(playerName, playerClassChoice);
-    else if (playerClassChoice == 2) player = new PufferfishDefender(playerName, playerClassChoice);
-    else if (playerClassChoice == 3) player = new JellyfishSorcerer(playerName, playerClassChoice);
+    if (playerClassChoice == 0) player = new OctopusAssassin(playerName, playerClassChoice, true);
+    else if (playerClassChoice == 1) player = new SharkBruiser(playerName, playerClassChoice, true);
+    else if (playerClassChoice == 2) player = new PufferfishDefender(playerName, playerClassChoice, true);
+    else if (playerClassChoice == 3) player = new JellyfishSorcerer(playerName, playerClassChoice, true);
 
     combatants.push_back(player);
 
-    // Read enemies from JSON (We skip index 0 since we manually created the player)
+    // Read enemies from JSON (Pass 'false' so they use AI)
     auto chars = storyData["characters"];
     for (size_t i = 1; i < chars.size(); ++i) {
         string cName = chars[i]["name"];
         int cRace = chars[i]["raceCode"];
 
         PlayerCharacter* newChar = nullptr;
-        if (cRace == 0) newChar = new OctopusAssassin(cName, cRace);
-        else if (cRace == 1) newChar = new SharkBruiser(cName, cRace);
-        else if (cRace == 2) newChar = new PufferfishDefender(cName, cRace);
-        else if (cRace == 3) newChar = new JellyfishSorcerer(cName, cRace);
+        if (cRace == 0) newChar = new OctopusAssassin(cName, cRace, false);
+        else if (cRace == 1) newChar = new SharkBruiser(cName, cRace, false);
+        else if (cRace == 2) newChar = new PufferfishDefender(cName, cRace, false);
+        else if (cRace == 3) newChar = new JellyfishSorcerer(cName, cRace, false);
 
         if (newChar) combatants.push_back(newChar);
     }

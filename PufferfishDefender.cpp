@@ -9,8 +9,10 @@
 
 #include "PufferfishDefender.hpp"
 #include <iostream>
+#include <limits>
 
-PufferfishDefender::PufferfishDefender(std::string& newName, int& raceCode) : PlayerCharacter(newName, raceCode) {
+PufferfishDefender::PufferfishDefender(std::string& newName, int& raceCode, bool isPlayer)
+    : PlayerCharacter(newName, raceCode), isPlayerControlled(isPlayer) {
     int maxHth = 40; setMaxHealth(maxHth);
     int hth = maxHth; setHealth(hth);
     int str = 4; setStrength(str);
@@ -31,8 +33,21 @@ void PufferfishDefender::spikeSwell(PlayerCharacter& target) {
 }
 
 void PufferfishDefender::performAction(PlayerCharacter& target) {
-    static int turnCounter = 0;
-    turnCounter++;
-    if (turnCounter % 2 == 0) spikeSwell(target);
-    else basicAttack(target);
+    if (isPlayerControlled) {
+        int choice;
+        std::cout << "Select an ACTION:\n  [0] TACKLE (Basic)\n  [1] POISON SPIKES (Piercing)\nChoice: ";
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || choice < 0 || choice > 1) {
+                std::cin.clear(); std::cin.ignore(10000, '\n');
+                std::cout << "Invalid. Enter 0 or 1: ";
+            } else break;
+        }
+        if (choice == 1) spikeSwell(target);
+        else basicAttack(target);
+    } else {
+        static int turnCounter = 0; turnCounter++;
+        if (turnCounter % 2 == 0) spikeSwell(target);
+        else basicAttack(target);
+    }
 }

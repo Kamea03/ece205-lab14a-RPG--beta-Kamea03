@@ -13,7 +13,7 @@
 #include <limits>
 
 // Constructor. Initializes all stats and class-specific mechanics directly.
-OctopusAssassin::OctopusAssassin(std::string& newName, int& raceCode) : PlayerCharacter(newName, raceCode) {
+OctopusAssassin::OctopusAssassin(std::string& newName, int& raceCode, bool isPlayer) : PlayerCharacter(newName, raceCode), isPlayerControlled(isPlayer) {
     int maxHth = 30; setMaxHealth(maxHth);
     int hth = maxHth; setHealth(hth);
     int str = 6; setStrength(str);
@@ -130,41 +130,30 @@ int OctopusAssassin::getDefense() const {
 }
 
 void OctopusAssassin::performAction(PlayerCharacter& target) {
-    int userInput;
+    if (isPlayerControlled) {
+        int userInput;
+        std::cout << "INK CHARGES: " << getResource() << "/" << getMaxResource() << std::endl;
+        std::cout << "Select an ACTION:\n  [0] BASIC ATTACK\n  [1] INK MARK\n  [2] TENTACLE SMACK\n  [3] ";
+        if (isStealthed) std::cout << "STAY HIDDEN\nChoice: ";
+        else std::cout << "INK SHROUD\nChoice: ";
 
-    std::cout << "INK CHARGES: " << getResource() << "/" << getMaxResource() << std::endl;
-    std::cout << "Select an ACTION:\n  [0] BASIC ATTACK\n  [1] INK MARK\n  [2] TENTACLE SMACK\n  [3] ";
-
-    if (isStealthed) {
-        std::cout << "STAY HIDDEN" << std::endl;
-    } else {
-        std::cout << "INK SHROUD" << std::endl;
-    }
-
-    std::cout << "Choice: ";
-
-    while (true) {
-        std::cin >> userInput;
-
-        // Input validation
-        if (std::cin.fail() || userInput < 0 || userInput > 3) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Invalid choice. Enter a number between 0 and 3: ";
-            continue;
+        while (true) {
+            std::cin >> userInput;
+            if (std::cin.fail() || userInput < 0 || userInput > 3) {
+                std::cin.clear(); std::cin.ignore(10000, '\n');
+                std::cout << "Invalid. Enter 0 to 3: ";
+            } else break;
         }
-
         switch (userInput) {
-            case 0: basicAttack(target); return;
-            case 1: inkMark(target); return;
-            case 2: tentacleSmack(target); return;
-            case 3:
-                if (isStealthed) {
-                    stayStealthed();
-                } else {
-                    inkShroud();
-                }
-                return;
+        case 0: basicAttack(target); return;
+        case 1: inkMark(target); return;
+        case 2: tentacleSmack(target); return;
+        case 3: isStealthed ? stayStealthed() : inkShroud(); return;
         }
+    } else {
+        // Basic AI for enemy Octopus
+        static int turnCounter = 0; turnCounter++;
+        if (turnCounter % 3 == 0) tentacleSmack(target);
+        else basicAttack(target);
     }
 }

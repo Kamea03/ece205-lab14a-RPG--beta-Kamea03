@@ -9,8 +9,9 @@
 
 #include "SharkBruiser.hpp"
 #include <iostream>
+#include <limits>
 
-SharkBruiser::SharkBruiser(std::string& newName, int& raceCode) : PlayerCharacter(newName, raceCode) {
+SharkBruiser::SharkBruiser(std::string& newName, int& raceCode, bool isPlayer): PlayerCharacter(newName, raceCode), isPlayerControlled(isPlayer) {
     int maxHth = 35; setMaxHealth(maxHth);
     int hth = maxHth; setHealth(hth);
     int str = 7; setStrength(str);
@@ -32,8 +33,23 @@ void SharkBruiser::bloodBite(PlayerCharacter& target) {
 }
 
 void SharkBruiser::performAction(PlayerCharacter& target) {
-    static int turnCounter = 0;
-    turnCounter++;
-    if (turnCounter % 3 == 0) bloodBite(target);
-    else basicAttack(target);
+    if (isPlayerControlled) {
+        int choice;
+        std::cout << "Select an ACTION:\n  [0] FIN SLAP (Basic)\n  [1] CRITICAL BITE (Heavy)\nChoice: ";
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || choice < 0 || choice > 1) {
+                std::cin.clear(); std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid. Enter 0 or 1: ";
+            } else break;
+        }
+        if (choice == 1) bloodBite(target);
+        else basicAttack(target);
+    } else {
+        //enemy attack
+        static int turnCounter = 0; turnCounter++;
+        if (turnCounter % 3 == 0) bloodBite(target);
+        else basicAttack(target);
+    }
+}
 }

@@ -14,7 +14,7 @@
 
 class OctopusAssassin : public PlayerCharacter { // Now inherits directly from PlayerCharacter
 private:
-    // Former Octopus base variables
+    bool isPlayerControlled;
     PlayerCharacter* markedTarget;
     int markBonusDamage;
 
@@ -33,7 +33,7 @@ protected:
     void stayStealthed();
 
 public:
-    OctopusAssassin(std::string& newName, int& raceCode);
+    OctopusAssassin(std::string& newName, int& raceCode, bool isPlayer = false);
 
     void performAction(PlayerCharacter& target) override;
     int getDefense() const override;
