@@ -120,7 +120,3 @@ void PlayerCharacter::basicAttack(PlayerCharacter& target) {
 	int damage = getStrength() - target.getDefense();
     target.takeDamage(damage);
 }
-
-int PlayerCharacter::getMaxHealth() const {
-    return maxHealth;
-}

@@ -152,8 +152,7 @@ int main() {
             cout << "--- CURRENT HEALTH ---\n";
             for (size_t k = 0; k < combatants.size(); ++k) {
                 if (combatants[k]->getHealth() > 0) {
-                    cout << "> " << combatants[k]->getName() << " HP: "
-                         << combatants[k]->getHealth() << " / " << combatants[k]->getMaxHealth() << "\n";
+                    cout << "> " << combatants[k]->getName() << " HP: " << combatants[k]->getHealth() << "\n";
                 }
             }
             cout << "----------------------\n";

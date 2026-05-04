@@ -49,7 +49,7 @@ public:
     //getters
     Race getRace() const;
     int getStrength() const;
-    int getMaxHealth() const;
+    int getHealth() const;
     int getAgility() const;
     virtual int getDefense() const; // Made virtual by Jayden
 
