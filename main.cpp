@@ -17,7 +17,6 @@
 #include "json.hpp"
 
 #include "PlayerCharacter.hpp"
-#include "Octopus.hpp"
 #include "OctopusAssassin.hpp"
 #include "SharkBruiser.hpp"
 #include "PufferfishDefender.hpp"
